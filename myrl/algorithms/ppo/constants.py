@@ -1,0 +1,3 @@
+GAMMA = 0.99
+LAMBDA = 0.95
+EPS = 0.2
