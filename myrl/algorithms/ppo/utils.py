@@ -9,7 +9,7 @@ def compute_value_loss(value, discounted_rewards):
     return loss_value
 
 def compute_actor_loss(log_probs, advantage_function):
-    return -(log_probs * advantage_tensor).mean()
+    return -(log_probs * advantage_function).mean()
 
 def compute_actor_clip_loss(
         log_prob, 
@@ -66,3 +66,9 @@ def calculate_advantage_function(delta: numpy.ndarray) -> list:
             constants.GAMMA*constants.LAMBDA
         )*future_advantage_function
     return advantage_function
+
+
+@torch.no_grad
+def calculate_kl_divergence(p: torch.Tensor, q: torch.Tensor) -> torch.float32:
+    KL_div = p @ (torch.log(p)-torch.log(q)).t()
+    return KL_div
